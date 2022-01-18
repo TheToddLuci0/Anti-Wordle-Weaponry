@@ -1,0 +1,5 @@
+*
+!.gitignore
+!word_data.json
+!letter_data.json
+!generate_data.py

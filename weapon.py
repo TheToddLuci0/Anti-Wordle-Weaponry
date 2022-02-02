@@ -6,6 +6,7 @@ letters = ['q','w','e','t','r','y','u','i','o','p','a','s','d','f','g','h','j'
         ,'k','l','z','x','c','v','b','n','m']
 answer = ['8','8','8','8','8']
 known = list()
+locations = {'0':[], '1':[], '2':[], '3':[], '4':[]}
 
 with open('data/word_data.json','r') as f:
     data = json.loads(f.read())
@@ -32,6 +33,8 @@ while True:
         for k in range(0,5):
             if key[k] == 'c':
                 answer[k] = guess[k]
+            if key[k] == 'v' and guess[k] not in locations[str(k)]:
+                locations[str(k)].append(guess[k])
             if key[k] == 'v' or key[k] == 'c':
                 if guess[k] not in known:
                     known.append(guess[k])
@@ -72,6 +75,10 @@ while True:
             if answer[k] is not '8' and answer[k] != _guess[k]:
                 abort = True
                 #print(_guess[k] +" is not " + answer[k])
+                break
+            if _guess[k] in locations[str(k)]:
+                abort = True
+                #print(_guess[k] + " is not allowed at this location")
                 break
         if abort:
             continue
